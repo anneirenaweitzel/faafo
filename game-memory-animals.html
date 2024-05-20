@@ -73,7 +73,6 @@
     </div>
 
     <script>
-        let currentTry = null;
         let firstCell = null;
 
         // List of image names
@@ -114,20 +113,21 @@
 
         // Function to handle cell click
         function handleClick(cell, imagePath) {
-            if (!currentTry) {
-                currentTry = imagePath;
-                firstCell = cell;
-            } else if (firstCell !== cell) {
-                if (currentTry === imagePath) {
-                    firstCell.classList.add('golden');
+            if (!firstCell) {
+                firstCell = {
+                    cell: cell,
+                    imagePath: imagePath
+                };
+            } else {
+                if (firstCell.imagePath === imagePath) {
+                    firstCell.cell.classList.add('golden');
                     cell.classList.add('golden');
                 } else {
                     setTimeout(() => {
-                        firstCell.querySelector('.cover').classList.remove('hidden');
+                        firstCell.cell.querySelector('.cover').classList.remove('hidden');
                         cell.querySelector('.cover').classList.remove('hidden');
                     }, 500);
                 }
-                currentTry = null;
                 firstCell = null;
             }
         }
@@ -144,8 +144,7 @@
             cover.classList.add('cover');
 
             // Add event listener to cover
-            cover.addEventListener('click', (event) => {
-                event.stopPropagation(); // Stop event propagation
+            cover.addEventListener('click', () => {
                 if (!cover.classList.contains('hidden')) {
                     cover.classList.add('hidden');
                     handleClick(gridItem, imagePath);

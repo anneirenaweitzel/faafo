@@ -142,9 +142,13 @@
 
             const cover = document.createElement('div');
             cover.classList.add('cover');
-            cover.addEventListener('click', () => {
-                cover.classList.add('hidden');
-                handleClick(gridItem, imagePath);
+
+            // Add event listener to grid item
+            gridItem.addEventListener('click', () => {
+                if (!cover.classList.contains('hidden')) {
+                    cover.classList.add('hidden');
+                    handleClick(gridItem, imagePath);
+                }
             });
 
             gridItem.appendChild(imgElement);

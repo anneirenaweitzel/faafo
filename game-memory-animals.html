@@ -73,7 +73,25 @@
     </div>
 
     <script>
-        let firstCellImagePath = null;
+        let firstCell = {};
+
+        // Function to handle cell click
+        function handleClick(cell, imagePath) {
+            if (!firstCell.imagePath) {
+                firstCell = { cell, imagePath };
+            } else {
+                if (firstCell.imagePath === imagePath) {
+                    firstCell.cell.classList.add('golden');
+                    cell.classList.add('golden');
+                } else {
+                    setTimeout(() => {
+                        firstCell.cell.querySelector('.cover').classList.remove('hidden');
+                        cell.querySelector('.cover').classList.remove('hidden');
+                    }, 500);
+                }
+                firstCell = {};
+            }
+        }
 
         // List of image names
         const imageNames = [
@@ -110,24 +128,6 @@
 
         // Get the grid container
         const gridContainer = document.getElementById('grid-container');
-
-        // Function to handle cell click
-        function handleClick(cell, imagePath) {
-            if (!firstCellImagePath) {
-                firstCellImagePath = imagePath;
-            } else {
-                if (firstCellImagePath === imagePath) {
-                    firstCellImagePath = null;
-                    cell.classList.add('golden');
-                    gridContainer.querySelector(`[src="${imagePath}"]`).parentNode.classList.add('golden');
-                } else {
-                    setTimeout(() => {
-                        cell.querySelector('.cover').classList.remove('hidden');
-                        gridContainer.querySelector(`[src="${firstCellImagePath}"]`).parentNode.querySelector('.cover').classList.remove('hidden');
-                    }, 500);
-                }
-            }
-        }
 
         // Create grid items and append them to the grid container
         shuffledImages.forEach((imagePath) => {

@@ -73,23 +73,24 @@
     </div>
 
     <script>
-        let firstCell = {};
+        let firstCell = null;
 
         // Function to handle cell click
         function handleClick(cell, imagePath) {
-            if (!firstCell.imagePath) {
-                firstCell = { cell, imagePath };
+            if (!firstCell) {
+                firstCell = { cell: cell, imagePath: imagePath };
             } else {
                 if (firstCell.imagePath === imagePath) {
                     firstCell.cell.classList.add('golden');
                     cell.classList.add('golden');
+                    firstCell = null; // Reset firstCell after successful match
                 } else {
                     setTimeout(() => {
                         firstCell.cell.querySelector('.cover').classList.remove('hidden');
                         cell.querySelector('.cover').classList.remove('hidden');
+                        firstCell = null; // Reset firstCell after failed match
                     }, 500);
                 }
-                firstCell = {};
             }
         }
 

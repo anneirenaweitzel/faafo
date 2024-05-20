@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Animals Memory Game</title>
+    <title>Animal Memory Game</title>
     <style>
         .grid-container {
             display: grid;
@@ -39,6 +39,9 @@
         .cover.hidden {
             opacity: 0;
         }
+        .golden {
+            border-color: gold !important;
+        }
     </style>
 </head>
 <body>
@@ -47,6 +50,9 @@
     </div>
 
     <script>
+        let currentTry = null;
+        let firstCell = null;
+
         // List of image names
         const imageNames = [
             'magpie',
@@ -83,6 +89,26 @@
         // Get the grid container
         const gridContainer = document.getElementById('grid-container');
 
+        // Function to handle cell click
+        function handleClick(cell, imagePath) {
+            if (!currentTry) {
+                currentTry = imagePath;
+                firstCell = cell;
+            } else {
+                if (currentTry === imagePath) {
+                    firstCell.classList.add('golden');
+                    cell.classList.add('golden');
+                } else {
+                    setTimeout(() => {
+                        firstCell.querySelector('.cover').classList.remove('hidden');
+                        cell.querySelector('.cover').classList.remove('hidden');
+                    }, 500);
+                }
+                currentTry = null;
+                firstCell = null;
+            }
+        }
+
         // Create grid items and append them to the grid container
         shuffledImages.forEach((imagePath) => {
             const gridItem = document.createElement('div');
@@ -95,6 +121,7 @@
             cover.classList.add('cover');
             cover.addEventListener('click', () => {
                 cover.classList.add('hidden');
+                handleClick(gridItem, imagePath);
             });
 
             gridItem.appendChild(imgElement);

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid Numbers Puzzle</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        h1 {
+            margin: 0 20px 0 0;
+        }
+        .matrix {
+            display: grid;
+            grid-template-columns: repeat(8, 50px);
+            grid-template-rows: repeat(8, 50px);
+            border: 2px solid gold;
+        }
+        .matrix div {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid white;
+        }
+        .matrix .clickable {
+            cursor: pointer;
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Grid Numbers Puzzle</h1>
+        <a href="index.html">
+            <button>Back Home</button>
+        </a>
+    </header>
+    <div class="matrix">
+        <!-- Upper left empty cell -->
+        <div></div>
+        <!-- First row numbers -->
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+        <div>6</div>
+        <div>7</div>
+        <!-- First column numbers -->
+        <div>1</div>
+        <!-- Fill the rest with clickable cells -->
+        <div class="clickable"></div>
+        <div class="clickable"></div>
+        <div class="clickable"></div>
+        <div class="clickable"></div>
+        <div class="clickable"></div>
+        <div class="clickable"></div>
+        <div>2</div>
+        <div class="clickable"></div>
+        <div class="clickable"></div>
+        <div class="clickable"></div>
+        <div class="clickable"></div>
+        <div class="clickable"></div>
+        <div class="clickable"></div>
+        <div>3</div>
+        <div class="clickable"></div>
+        <div class="clickable"></div>
+        <div class="clickable"></div>
+        <div class="clickable"></div>
+        <div class="clickable"></div>
+        <div class="clickable"></div>
+        <div>4</div>
+        <div class="clickable"></div>
+        <div class="clickable"></div>
+        <div class="clickable"></div>
+        <div class="clickable"></div>
+        <div class="clickable"></div>
+        <div class="clickable"></div>
+        <div>5</div>
+        <div class="clickable"></div>
+        <div class="clickable"></div>
+        <div class="clickable"></div>
+        <div class="clickable"></div>
+        <div class="clickable"></div>
+        <div class="clickable"></div>
+        <div>6</div>
+        <div class="clickable"></div>
+        <div class="clickable"></div>
+        <div class="clickable"></div>
+        <div class="clickable"></div>
+        <div class="clickable"></div>
+        <div class="clickable"></div>
+        <div>7</div>
+        <div class="clickable"></div>
+        <div class="clickable"></div>
+        <div class="clickable"></div>
+        <div class="clickable"></div>
+        <div class="clickable"></div>
+        <div class="clickable"></div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.clickable').forEach(cell => {
+            cell.addEventListener('click', () => {
+                switch(cell.style.backgroundColor) {
+                    case 'black':
+                        cell.style.backgroundColor = 'darkgreen';
+                        break;
+                    case 'darkgreen':
+                        cell.style.backgroundColor = 'darkblue';
+                        break;
+                    case 'darkblue':
+                        cell.style.backgroundColor = 'black';
+                        break;
+                    default:
+                        cell.style.backgroundColor = 'darkgreen';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

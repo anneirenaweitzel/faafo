@@ -97,6 +97,11 @@
             text-align: center;
         }
     </style>
+    <script> 
+        function closePopup() { 
+          window.close(); 
+        } 
+    </script> 
 </head>
 <body>
     <div class="container">
@@ -111,6 +116,7 @@
 
     <div class="popup" id="popup">
         <p class="popup-message">Yay, you made it! Congrats! :)</p>
+        <button onclick="closePopup()">X</button>
     </div>
 
     <script>

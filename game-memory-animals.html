@@ -9,9 +9,15 @@
             background-color: black;
             margin: 0;
             padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
         }
         .header {
-            text-align: center;
             color: white;
             padding: 20px 0;
         }
@@ -57,11 +63,13 @@
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Animal Memory Game</h1>
-    </div>
-    <div class="grid-container" id="grid-container">
-        <!-- Images will be inserted here by JavaScript -->
+    <div class="container">
+        <div class="header">
+            <h1>Animal Memory Game</h1>
+        </div>
+        <div class="grid-container" id="grid-container">
+            <!-- Images will be inserted here by JavaScript -->
+        </div>
     </div>
 
     <script>

@@ -115,7 +115,7 @@
 
     <script>
         let firstCell = null;
-        let pairCount = 0;
+        let foundPairs = 0;
 
         // Function to handle cell click
         function handleClick(cell, imagePath) {
@@ -125,14 +125,13 @@
                 if (firstCell.imagePath === imagePath) {
                     firstCell.cell.classList.add('golden');
                     cell.classList.add('golden');
-                    pairCount++;
-                    updatePairCount();
-                    firstCell = null; // Reset firstCell after successful match
-                    if (pairCount === 10) {
+                    foundPairs++;
+                    if (foundPairs === 10) {
                         setTimeout(() => {
                             showPopup();
                         }, 1000); // Display popup after a delay of 1 second
                     }
+                    firstCell = null; // Reset firstCell after successful match
                 } else {
                     setTimeout(() => {
                         firstCell.cell.querySelector('.cover').classList.remove('hidden');
@@ -141,11 +140,6 @@
                     }, 1000); // Increase delay before covering non-matching cells to 1 second
                 }
             }
-        }
-
-        // Function to update pair count display
-        function updatePairCount() {
-            document.getElementById('pair-count').textContent = `You found ${pairCount} pairs so far.`;
         }
 
         // Function to show popup
@@ -179,8 +173,8 @@
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [array[i], array[j]] = [array[j], array[i]];
+                return array;
             }
-            return array;
         }
 
         // Shuffle the images array
@@ -215,3 +209,5 @@
     </script>
 </body>
 </html>
+
+           

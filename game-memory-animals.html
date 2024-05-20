@@ -140,12 +140,12 @@
                     }, 1000); // Increase delay before covering non-matching cells to 1 second
                 }
             }
-        }
+        };
 
         // Function to show popup
         function showPopup() {
             document.getElementById('popup').style.display = 'block';
-        }
+        };
 
         // List of image names
         const imageNames = [
@@ -181,33 +181,32 @@
         const shuffledImages = shuffle(images);
 
         // Get the grid container
-const gridContainer = document.getElementById('grid-container');
+        const gridContainer = document.getElementById('grid-container');
 
-// Create grid items and append them to the grid container
-shuffledImages.forEach((imagePath) => {
-    const gridItem = document.createElement('div');
-    gridItem.classList.add('grid-item');
-    const imgElement = document.createElement('img');
-    imgElement.src = imagePath;
-    imgElement.alt = `Image ${imagePath}`;
+        // Create grid items and append them to the grid container
+        shuffledImages.forEach((imagePath) => {
+            const gridItem = document.createElement('div');
+            gridItem.classList.add('grid-item');
+            const imgElement = document.createElement('img');
+            imgElement.src = imagePath;
+            imgElement.alt = `Image ${imagePath}`;
 
-    const cover = document.createElement('div');
-    cover.classList.add('cover');
+            const cover = document.createElement('div');
+            cover.classList.add('cover');
 
-    // Add event listener to grid item
-    gridItem.addEventListener('click', () => {
-        if (!cover.classList.contains('hidden')) {
-            cover.classList.add('hidden');
-            handleClick(gridItem, imagePath);
-        }
-    });
+            // Add event listener to grid item
+            gridItem.addEventListener('click', () => {
+                if (!cover.classList.contains('hidden')) {
+                    cover.classList.add('hidden');
+                    handleClick(gridItem, imagePath);
+                }
+            });
 
-    gridItem.appendChild(imgElement);
-    gridItem.appendChild(cover);
-    gridContainer.appendChild(gridItem);
-});
+            gridItem.appendChild(imgElement);
+            gridItem.appendChild(cover);
+            gridContainer.appendChild(gridItem);
+        });
 
-    
 </script>
 </body>
 </html>

@@ -5,10 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Animal Memory Game</title>
     <style>
+        body {
+            background-color: black;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            text-align: center;
+            color: white;
+            padding: 20px 0;
+        }
         .grid-container {
             display: grid;
             grid-template-columns: repeat(5, 100px);
             gap: 10px;
+            border: 4px solid gold;
+            padding: 10px;
         }
         .grid-item {
             position: relative;
@@ -45,6 +57,9 @@
     </style>
 </head>
 <body>
+    <div class="header">
+        <h1>Animal Memory Game</h1>
+    </div>
     <div class="grid-container" id="grid-container">
         <!-- Images will be inserted here by JavaScript -->
     </div>
@@ -94,7 +109,7 @@
             if (!currentTry) {
                 currentTry = imagePath;
                 firstCell = cell;
-            } else {
+            } else if (firstCell !== cell) {
                 if (currentTry === imagePath) {
                     firstCell.classList.add('golden');
                     cell.classList.add('golden');

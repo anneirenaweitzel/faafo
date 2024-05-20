@@ -183,13 +183,13 @@
         // Get the grid container
         const gridContainer = document.getElementById('grid-container');
 
-        // Create grid items and append them to the grid container
-        shuffledImages.forEach((imagePath) => {
+                // Create grid items and append them to the grid container
+        shuffledImages.forEach((imagePath, index) => {
             const gridItem = document.createElement('div');
             gridItem.classList.add('grid-item');
             const imgElement = document.createElement('img');
             imgElement.src = imagePath;
-            imgElement.alt = `Image ${imagePath}`;
+            imgElement.alt = `Image ${index}`;
 
             const cover = document.createElement('div');
             cover.classList.add('cover');
@@ -206,6 +206,7 @@
             gridItem.appendChild(cover);
             gridContainer.appendChild(gridItem);
         });
+
     </script>
 </body>
 </html>

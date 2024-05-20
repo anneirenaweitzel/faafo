@@ -113,7 +113,7 @@
 
         // Function to handle cell click
         function handleClick(cell, imagePath) {
-            if (firstCell == null) {
+            if (!firstCell) {
                 firstCell = {
                     cell: cell,
                     imagePath: imagePath
@@ -143,8 +143,8 @@
             const cover = document.createElement('div');
             cover.classList.add('cover');
 
-            // Add event listener to cover
-            cover.addEventListener('click', () => {
+            // Add event listener to grid item
+            gridItem.addEventListener('click', () => {
                 if (!cover.classList.contains('hidden')) {
                     cover.classList.add('hidden');
                     handleClick(gridItem, imagePath);

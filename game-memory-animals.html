@@ -15,11 +15,55 @@
             height: 100vh;
         }
         .container {
-            text-align: center;
+            text-align: left;
+            padding: 0 20px; /* Add padding to the container */
         }
         .header {
             color: white;
             padding: 20px 0;
+            display: flex; /* Enable flex layout for header */
+            justify-content: space-between; /* Distribute items evenly */
+            align-items: center; /* Center items vertically */
+        }
+        .header h1 {
+            margin: 0; /* Remove margin for h1 */
+        }
+        .back-button {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+            padding: 10px 20px;
+            text-decoration: none; /* Remove default link underline */
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .back-button:hover {
+            background-color: white;
+            color: black;
+        }
+        .golden-box {
+            background-color: gold;
+            color: black;
+            padding: 10px 20px;
+            border: 2px solid gold;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border: 2px solid gold;
+            border-radius: 5px;
+            z-index: 9999; /* Ensure it's on top of other elements */
+            display: none;
+        }
+        .popup-message {
+            color: black;
+            font-weight: bold;
+            text-align: center;
         }
         .grid-container {
             display: grid;
@@ -66,14 +110,21 @@
     <div class="container">
         <div class="header">
             <h1>Animal Memory Game</h1>
+            <a href="index.html" class="back-button">Back Home</a>
         </div>
         <div class="grid-container" id="grid-container">
             <!-- Images will be inserted here by JavaScript -->
         </div>
+        <div class="golden-box" id="pair-count">You found 0 pairs so far.</div>
+    </div>
+
+    <div class="popup" id="popup">
+        <p class="popup-message">Yay, you made it! Congrats! :)</p>
     </div>
 
     <script>
         let firstCell = null;
+        let pairCount = 0;
 
         // Function to handle cell click
         function handleClick(cell, imagePath) {
@@ -83,15 +134,32 @@
                 if (firstCell.imagePath === imagePath) {
                     firstCell.cell.classList.add('golden');
                     cell.classList.add('golden');
+                    pairCount++;
+                    updatePairCount();
                     firstCell = null; // Reset firstCell after successful match
+                    if (pairCount === 10) {
+                        setTimeout(() => {
+                            showPopup();
+                        }, 500);
+                    }
                 } else {
                     setTimeout(() => {
                         firstCell.cell.querySelector('.cover').classList.remove('hidden');
                         cell.querySelector('.cover').classList.remove('hidden');
                         firstCell = null; // Reset firstCell after failed match
-                    }, 500);
+                    }, 1000); // Increase delay before covering non-matching cells to 1 second
                 }
             }
+        }
+
+        // Function to update pair count display
+        function updatePairCount() {
+            document.getElementById('pair-count').textContent = `You found ${pairCount} pairs so far.`;
+        }
+
+        // Function to show popup
+        function showPopup() {
+            document.getElementById('popup').style.display = 'block';
         }
 
         // List of image names
@@ -108,51 +176,4 @@
             'whale'
         ];
 
-        // Duplicate each image name to have 20 images in total
-        const images = [];
-        imageNames.forEach(name => {
-            images.push(`images/${name}.jpg`);
-            images.push(`images/${name}.jpg`);
-        });
-
-        // Shuffle the array using Fisher-Yates algorithm
-        function shuffle(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-            return array;
-        }
-
-        // Shuffle the images array
-        const shuffledImages = shuffle(images);
-
-        // Get the grid container
-        const gridContainer = document.getElementById('grid-container');
-
-        // Create grid items and append them to the grid container
-        shuffledImages.forEach((imagePath) => {
-            const gridItem = document.createElement('div');
-            gridItem.classList.add('grid-item');
-            const imgElement = document.createElement('img');
-            imgElement.src = imagePath;
-            imgElement.alt = `Image ${imagePath}`;
-
-            const cover = document.createElement('div');
-            cover.classList.add('cover');
-
-            // Add event listener to grid item
-            gridItem.addEventListener('click', () => {
-                if (!cover.classList.contains('hidden')) {
-                    cover.classList.add('hidden');
-                    handleClick(gridItem, imagePath);
-                }
-            });
-
-            gridItem.appendChild(imgElement);
-            gridItem.appendChild(cover);
-            gridContainer.appendChild(gridItem);
-        });
-    </script>
-</body>
-</html>
+        // Duplicate each image name to have 20 images

@@ -136,8 +136,8 @@
                     setTimeout(() => {
                         firstCell.cell.querySelector('.cover').classList.remove('hidden');
                         cell.querySelector('.cover').classList.remove('hidden');
+                        firstCell = null; // Reset firstCell after failed match
                     }, 800); // Set delay before covering non-matching cells to 0.8 seconds
-                    firstCell = null; // Reset firstCell after failed match
                 }
             }
         };

@@ -143,8 +143,9 @@
             const cover = document.createElement('div');
             cover.classList.add('cover');
 
-            // Add event listener to grid item
-            gridItem.addEventListener('click', () => {
+            // Add event listener to cover
+            cover.addEventListener('click', (event) => {
+                event.stopPropagation(); // Stop event propagation
                 if (!cover.classList.contains('hidden')) {
                     cover.classList.add('hidden');
                     handleClick(gridItem, imagePath);

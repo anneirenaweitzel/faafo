@@ -79,6 +79,23 @@
         .golden {
             border-color: gold !important;
         }
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border: 2px solid gold;
+            border-radius: 5px;
+            z-index: 9999; /* Ensure it's on top of other elements */
+            display: none;
+        }
+        .popup-message {
+            color: black;
+            font-weight: bold;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -92,8 +109,13 @@
         </div>
     </div>
 
+    <div class="popup" id="popup">
+        <p class="popup-message">Yay, you made it! Congrats! :)</p>
+    </div>
+
     <script>
         let firstCell = null;
+        let pairCount = 0;
 
         // Function to handle cell click
         function handleClick(cell, imagePath) {
@@ -103,7 +125,14 @@
                 if (firstCell.imagePath === imagePath) {
                     firstCell.cell.classList.add('golden');
                     cell.classList.add('golden');
+                    pairCount++;
+                    updatePairCount();
                     firstCell = null; // Reset firstCell after successful match
+                    if (pairCount === 10) {
+                        setTimeout(() => {
+                            showPopup();
+                        }, 1000); // Display popup after a delay of 1 second
+                    }
                 } else {
                     setTimeout(() => {
                         firstCell.cell.querySelector('.cover').classList.remove('hidden');
@@ -112,6 +141,16 @@
                     }, 1000); // Increase delay before covering non-matching cells to 1 second
                 }
             }
+        }
+
+        // Function to update pair count display
+        function updatePairCount() {
+            document.getElementById('pair-count').textContent = `You found ${pairCount} pairs so far.`;
+        }
+
+        // Function to show popup
+        function showPopup() {
+            document.getElementById('popup').style.display = 'block';
         }
 
         // List of image names

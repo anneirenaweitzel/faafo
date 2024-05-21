@@ -185,6 +185,8 @@
             }
         }
 
+
+    document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.clickable').forEach(cell => {
             cell.addEventListener('click', () => {
                 const row = cell.getAttribute('data-row');
@@ -207,7 +209,8 @@
                 checkCounters();
             });
         });
-    </script>
+    });
+</script>
 </body>
 </html>
 

@@ -186,8 +186,7 @@
         }
 
 
-    document.addEventListener('DOMContentLoaded', () => {
-        document.querySelectorAll('.clickable').forEach(cell => {
+    document.querySelectorAll('.clickable').forEach(cell => {
             cell.addEventListener('click', () => {
                 const row = cell.getAttribute('data-row');
                 const col = cell.getAttribute('data-col');
@@ -205,11 +204,15 @@
                     case 'black':
                         cell.style.backgroundColor = 'grey';
                         break;
+                    default:
+                        cell.style.backgroundColor = 'gold';
+                        window[`r${row}`]++;
+                        window[`c${col}`]++;
                 }
                 checkCounters();
             });
-        });
     });
+
 </script>
 </body>
 </html>

@@ -30,8 +30,8 @@
         }
         .matrix {
             display: grid;
-            grid-template-columns: repeat(8, 50px);
-            grid-template-rows: repeat(8, 50px);
+            grid-template-columns: repeat(6, 50px);
+            grid-template-rows: repeat(6, 50px);
         }
         .matrix div {
             width: 50px;
@@ -89,13 +89,13 @@
         const matrixElement = document.getElementById('matrix');
         const matrix = [];
         const solutionRows = [];
-        const solutionColumns = [0, 0, 0, 0, 0, 0, 0];
+        const solutionColumns = [0, 0, 0, 0, 0];
 
-        // Generate a 7x7 matrix with random 0s and 1s
-        for (let i = 0; i < 7; i++) {
+        // Generate a 5x5 matrix with random 0s and 1s
+        for (let i = 0; i < 5; i++) {
             const row = [];
             let rowSum = 0;
-            for (let j = 0; j < 7; j++) {
+            for (let j = 0; j < 5; j++) {
                 const value = Math.round(Math.random());
                 row.push(value);
                 rowSum += value;
@@ -109,38 +109,38 @@
         matrixElement.innerHTML = '<div></div>'; // Upper left empty cell
 
         // Add column sums to the first row
-        for (let i = 0; i < 7; i++) {
+        for (let i = 0; i < 5; i++) {
             matrixElement.innerHTML += `<div class="number" id="col${i+1}-header">${solutionColumns[i]}</div>`;
         }
 
         // Add row sums and the rest of the matrix
-        for (let i = 0; i < 7; i++) {
+        for (let i = 0; i < 5; i++) {
             matrixElement.innerHTML += `<div class="number" id="row${i+1}-header">${solutionRows[i]}</div>`;
-            for (let j = 0; j < 7; j++) {
+            for (let j = 0; j < 5; j++) {
                 matrixElement.innerHTML += `<div class="clickable" data-row="${i+1}" data-col="${j+1}" style="background-color: grey;"></div>`;
             }
         }
 
         // Initialize counters
-        let r1 = 0, r2 = 0, r3 = 0, r4 = 0, r5 = 0, r6 = 0, r7 = 0;
-        let c1 = 0, c2 = 0, c3 = 0, c4 = 0, c5 = 0, c6 = 0, c7 = 0;
+        let r1 = 0, r2 = 0, r3 = 0, r4 = 0, r5 = 0;
+        let c1 = 0, c2 = 0, c3 = 0, c4 = 0, c5 = 0;
 
         // Function to check counters
         function checkCounters() {
-            const rowCounters = [r1, r2, r3, r4, r5, r6, r7];
-            const colCounters = [c1, c2, c3, c4, c5, c6, c7];
+            const rowCounters = [r1, r2, r3, r4, r5];
+            const colCounters = [c1, c2, c3, c4, c5];
             let allMatched = true;
 
-            for (let i = 0; i < 7; i++) {
+            for (let i = 0; i < 5; i++) {
                 const rowHeader = document.getElementById(`row${i+1}-header`);
                 const colHeader = document.getElementById(`col${i+1}-header`);
-                if (rowCounters[i] == solutionRows[i]) {
+                if (rowCounters[i] === solutionRows[i] && (5 - rowCounters[i]) === (5 - solutionRows[i])) {
                     rowHeader.classList.add('gold');
                 } else {
                     rowHeader.classList.remove('gold');
                     allMatched = false;
                 }
-                if (colCounters[i] == solutionColumns[i]) {
+                if (colCounters[i] === solutionColumns[i] && (5 - colCounters[i]) === (5 - solutionColumns[i])) {
                     colHeader.classList.add('gold');
                 } else {
                     colHeader.classList.remove('gold');

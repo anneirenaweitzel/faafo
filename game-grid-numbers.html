@@ -76,74 +76,8 @@
         </a>
     </header>
     <div class="matrix-container">
-        <div class="matrix">
-            <!-- Upper left empty cell -->
-            <div></div>
-            <!-- First row numbers -->
-            <div class="number" id="col1-header">1</div>
-            <div class="number" id="col2-header">2</div>
-            <div class="number" id="col3-header">3</div>
-            <div class="number" id="col4-header">4</div>
-            <div class="number" id="col5-header">5</div>
-            <div class="number" id="col6-header">6</div>
-            <div class="number" id="col7-header">7</div>
-            <!-- First column numbers and the rest of the matrix -->
-            <div class="number" id="row1-header">1</div>
-            <div class="clickable" data-row="1" data-col="1"></div>
-            <div class="clickable" data-row="1" data-col="2"></div>
-            <div class="clickable" data-row="1" data-col="3"></div>
-            <div class="clickable" data-row="1" data-col="4"></div>
-            <div class="clickable" data-row="1" data-col="5"></div>
-            <div class="clickable" data-row="1" data-col="6"></div>
-            <div class="clickable" data-row="1" data-col="7"></div>
-            <div class="number" id="row2-header">2</div>
-            <div class="clickable" data-row="2" data-col="1"></div>
-            <div class="clickable" data-row="2" data-col="2"></div>
-            <div class="clickable" data-row="2" data-col="3"></div>
-            <div class="clickable" data-row="2" data-col="4"></div>
-            <div class="clickable" data-row="2" data-col="5"></div>
-            <div class="clickable" data-row="2" data-col="6"></div>
-            <div class="clickable" data-row="2" data-col="7"></div>
-            <div class="number" id="row3-header">3</div>
-            <div class="clickable" data-row="3" data-col="1"></div>
-            <div class="clickable" data-row="3" data-col="2"></div>
-            <div class="clickable" data-row="3" data-col="3"></div>
-            <div class="clickable" data-row="3" data-col="4"></div>
-            <div class="clickable" data-row="3" data-col="5"></div>
-            <div class="clickable" data-row="3" data-col="6"></div>
-            <div class="clickable" data-row="3" data-col="7"></div>
-            <div class="number" id="row4-header">4</div>
-            <div class="clickable" data-row="4" data-col="1"></div>
-            <div class="clickable" data-row="4" data-col="2"></div>
-            <div class="clickable" data-row="4" data-col="3"></div>
-            <div class="clickable" data-row="4" data-col="4"></div>
-            <div class="clickable" data-row="4" data-col="5"></div>
-            <div class="clickable" data-row="4" data-col="6"></div>
-            <div class="clickable" data-row="4" data-col="7"></div>
-            <div class="number" id="row5-header">5</div>
-            <div class="clickable" data-row="5" data-col="1"></div>
-            <div class="clickable" data-row="5" data-col="2"></div>
-            <div class="clickable" data-row="5" data-col="3"></div>
-            <div class="clickable" data-row="5" data-col="4"></div>
-            <div class="clickable" data-row="5" data-col="5"></div>
-            <div class="clickable" data-row="5" data-col="6"></div>
-            <div class="clickable" data-row="5" data-col="7"></div>
-            <div class="number" id="row6-header">6</div>
-            <div class="clickable" data-row="6" data-col="1"></div>
-            <div class="clickable" data-row="6" data-col="2"></div>
-            <div class="clickable" data-row="6" data-col="3"></div>
-            <div class="clickable" data-row="6" data-col="4"></div>
-            <div class="clickable" data-row="6" data-col="5"></div>
-            <div class="clickable" data-row="6" data-col="6"></div>
-            <div class="clickable" data-row="6" data-col="7"></div>
-            <div class="number" id="row7-header">7</div>
-            <div class="clickable" data-row="7" data-col="1"></div>
-            <div class="clickable" data-row="7" data-col="2"></div>
-            <div class="clickable" data-row="7" data-col="3"></div>
-            <div class="clickable" data-row="7" data-col="4"></div>
-            <div class="clickable" data-row="7" data-col="5"></div>
-            <div class="clickable" data-row="7" data-col="6"></div>
-            <div class="clickable" data-row="7" data-col="7"></div>
+        <div class="matrix" id="matrix">
+            <!-- The matrix will be populated by JavaScript -->
         </div>
     </div>
 
@@ -151,42 +85,76 @@
         Yay, you made it! Congrats! :)
     </div>
 
-        <script>
-        // Initialize row and column counters
+    <script>
+        const matrixElement = document.getElementById('matrix');
+        const matrix = [];
+        const solutionRows = [];
+        const solutionColumns = [0, 0, 0, 0, 0, 0, 0];
+
+        // Generate a 7x7 matrix with random 0s and 1s
+        for (let i = 0; i < 7; i++) {
+            const row = [];
+            let rowSum = 0;
+            for (let j = 0; j < 7; j++) {
+                const value = Math.round(Math.random());
+                row.push(value);
+                rowSum += value;
+                solutionColumns[j] += value;
+            }
+            matrix.push(row);
+            solutionRows.push(rowSum);
+        }
+
+        // Populate the matrix element
+        matrixElement.innerHTML = '<div></div>'; // Upper left empty cell
+
+        // Add column sums to the first row
+        for (let i = 0; i < 7; i++) {
+            matrixElement.innerHTML += `<div class="number" id="col${i+1}-header">${solutionColumns[i]}</div>`;
+        }
+
+        // Add row sums and the rest of the matrix
+        for (let i = 0; i < 7; i++) {
+            matrixElement.innerHTML += `<div class="number" id="row${i+1}-header">${solutionRows[i]}</div>`;
+            for (let j = 0; j < 7; j++) {
+                matrixElement.innerHTML += `<div class="clickable" data-row="${i+1}" data-col="${j+1}" style="background-color: grey;"></div>`;
+            }
+        }
+
+        // Initialize counters
         let r1 = 0, r2 = 0, r3 = 0, r4 = 0, r5 = 0, r6 = 0, r7 = 0;
         let c1 = 0, c2 = 0, c3 = 0, c4 = 0, c5 = 0, c6 = 0, c7 = 0;
 
+        // Function to check counters
         function checkCounters() {
-            for (let i = 1; i <= 7; i++) {
-                const rowCounter = window[`r${i}`];
-                const colCounter = window[`c${i}`];
-                const rowHeader = document.getElementById(`row${i}-header`);
-                const colHeader = document.getElementById(`col${i}-header`);
+            const rowCounters = [r1, r2, r3, r4, r5, r6, r7];
+            const colCounters = [c1, c2, c3, c4, c5, c6, c7];
+            let allMatched = true;
 
-                if (rowCounter === i) {
+            for (let i = 0; i < 7; i++) {
+                const rowHeader = document.getElementById(`row${i+1}-header`);
+                const colHeader = document.getElementById(`col${i+1}-header`);
+                if (rowCounters[i] == solutionRows[i]) {
                     rowHeader.classList.add('gold');
                 } else {
                     rowHeader.classList.remove('gold');
+                    allMatched = false;
                 }
-
-                if (colCounter === i) {
+                if (colCounters[i] == solutionColumns[i]) {
                     colHeader.classList.add('gold');
                 } else {
                     colHeader.classList.remove('gold');
+                    allMatched = false;
                 }
             }
 
-            // Check if all counters match their headers
-            const allRowsMatch = [r1, r2, r3, r4, r5, r6, r7].every((count, index) => count === index + 1);
-            const allColsMatch = [c1, c2, c3, c4, c5, c6, c7].every((count, index) => count === index + 1);
-
-            if (allRowsMatch && allColsMatch) {
+            if (allMatched) {
                 document.getElementById('popup').style.display = 'block';
             }
         }
 
-
-    document.querySelectorAll('.clickable').forEach(cell => {
+        // Attach event listeners to the cells
+        document.querySelectorAll('.clickable').forEach(cell => {
             cell.addEventListener('click', () => {
                 const row = cell.getAttribute('data-row');
                 const col = cell.getAttribute('data-col');
@@ -204,17 +172,10 @@
                     case 'black':
                         cell.style.backgroundColor = 'grey';
                         break;
-                    default:
-                        cell.style.backgroundColor = 'gold';
-                        window[`r${row}`]++;
-                        window[`c${col}`]++;
                 }
                 checkCounters();
             });
-    });
-
-</script>
+        });
+    </script>
 </body>
 </html>
-
-
